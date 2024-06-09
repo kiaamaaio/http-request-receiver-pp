@@ -1,0 +1,17 @@
+version: '3'
+services:
+  php:
+    build:
+      context: ./docker/php
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/home/kiaamaaio/source/http-request-receiver-pp
+  nginx:
+    image: nginx:1.27.0
+    ports:
+      - 8080:80
+    volumes:
+      - ./public:/home/kiaamaaio/source/http-request-receiver-pp/public
+      - ./docker/nginx:/etc/nginx/conf.d
+    depends_on:
+      - php
